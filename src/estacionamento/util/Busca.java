@@ -7,7 +7,7 @@ import estacionamento.veiculos.Veiculo;
 
 public class Busca {
 	 Scanner input = new Scanner(System.in);
-	    public int getIdVeiculos(ArrayList<Veiculo> veiculos){
+	    public int getIdVeiculos(ArrayList<Veiculo>veiculos){
 	        System.out.println("---------------------Digite o ID do veiculo--------------------");
 	        int id = input.nextInt();
 	        for(int aux = 0; aux < veiculos.size(); aux++){

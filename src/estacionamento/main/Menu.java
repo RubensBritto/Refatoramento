@@ -1,6 +1,7 @@
 package estacionamento.main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import estacionamento.strategy.MenuStrategy;
@@ -22,16 +23,24 @@ public class Menu {
 	            "[6] Adicionar o Valor das horas extras e tempo máx de permanencia\n"+
 	            "[7] Alterar horas extras e/ou tempo de permanencia\n"+
 	            "[8] Mostrar estado atual\n"+
-	            "[9] Relatorio Financeiro\n");
+	            "[9] Relatorio Financeiro\n"+
+	            "[10] Sair");
 	            int escolha = input.nextInt();
+	            while(escolha < 0 || escolha >= 11) {
+	            	System.out.println("Digite um numero entre 1 e 10");
+	            	escolha = input.nextInt();
+	            }
 	            TypeMenu typeMenu = TypeMenu.values()[escolha - 1];
 	            
 	            MenuStrategy menuStrategy = typeMenu.obterMenu();
 	            menuStrategy.execute(veiculos);
+	            start();
 	            
 	        	}catch(NumberFormatException e){
 	            System.out.println("O sistema espera um numero");
-	            start();
+	            return;
+	        }catch(InputMismatchException e){
+	            System.out.println("O sistema espera um numero");
 	            return;
 	        }
 	    }

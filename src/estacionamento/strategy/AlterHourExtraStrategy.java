@@ -18,10 +18,14 @@ public class AlterHourExtraStrategy implements MenuStrategy {
 			        try {
 			            int escolha = input.nextInt();
 			            if(escolha == 1){
-			                preco.setHoraAdicional(input.nextInt()); 
+			            	System.out.println("Digie a nova hora adicional");
+			                preco.setHoraAdicional(input.nextInt());
+			            	System.out.println("Alteração feita com sucesso");
 			            }
 			            else if (escolha == 2) {
-			                preco.setPriceHoraAdicional(input.nextDouble()); 
+			            	System.out.println("Digie o novo valor para a hora adicional");
+			                preco.setPriceHoraAdicional(input.nextDouble());
+			            	System.out.println("Alteração feita com sucesso");
 			            } 
 			            else{
 			                System.out.println("Opção invalida");

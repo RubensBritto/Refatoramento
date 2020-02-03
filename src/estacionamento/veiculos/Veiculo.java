@@ -1,5 +1,6 @@
 package estacionamento.veiculos;
 
+//import java.util.ArrayList;
 import java.util.Date;
 
 public class Veiculo {
@@ -22,6 +23,7 @@ public class Veiculo {
 		this.tipo = tipo;
 		this.cor = cor;
 		this.preco = preco;
+
 	}
 	public Veiculo(){	
 		data.getTime();
