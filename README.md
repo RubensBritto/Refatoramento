@@ -6,6 +6,8 @@
 ### 1. Strategy
 <p>Utilizado na classe Menu e na interface MenuStrategy.Criando o polimofismo do metodo Execute() e a Classe Enum TypeMenu (funciona como uma list) onde cada posição é uma classe que cria um comando diferente. <p/>
 
+![menu](https://user-images.githubusercontent.com/47110177/74074161-b9b4d680-49eb-11ea-849d-1ba8ecfa307e.png)
+
 ### 2. Chain Constructors
 <p>Utilizado em conjunto com o Strategy, na Classe Enum TypeMenu para realizar a retirada dos IF's na classe Menu.<p/>
 
