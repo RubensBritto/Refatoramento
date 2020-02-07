@@ -5,10 +5,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.management.InvalidAttributeValueException;
-
-import estacionamento.financeiro.Preco;
+import estacionamento.exceptions.Exceptions;
 import estacionamento.main.Menu;
+import estacionamento.util.BuscaId;
 import estacionamento.util.Validador;
 import estacionamento.veiculos.Caminhao;
 import estacionamento.veiculos.Carro;
@@ -18,97 +17,75 @@ import estacionamento.veiculos.Veiculo;
 public class CriarStrategy implements MenuStrategy {
 	Scanner input = new Scanner(System.in);
 	Validador validador = new Validador();
-	Preco price = new Preco();
 	Menu menu = new Menu();
+	BuscaId busca = new BuscaId();
+	Exceptions exceptions = new Exceptions();
 	
-	private int qtdCarro;
-	private int qtdCaminhao;
-	private int qtdMoto;
-	public int qtdTotal;
-	private static final int maxQt = 1000;
-	private boolean[] postionID = new boolean[maxQt];
-
-	public CriarStrategy(){
-		PreencherPosition();
-	}
-
-	private void PreencherPosition() {
-		for (int i = 0; i < this.postionID.length; i++)
-			this.postionID[i] = false;
-	}
-
-	private int getFreeId() {
-		for (int i = 1; i < postionID.length; i++) {
-			if (this.postionID[i] != true)
-				return i;
-		}
-		return -1;
-	}
 	@Override
-	public void execute(ArrayList<Veiculo> veiculos){
+	public void execute(ArrayList<Veiculo> veiculos, ArrayList<Double>valor){
 		try {
-			int id = getFreeId();
-			if (id <= -1) {
-				throw new InvalidAttributeValueException();
+			System.out.printf("Digite o ID\n");
+			int id = exceptions.integerInput();
+			int retorno = busca.getIdVeiculos(veiculos, id);
+			while(retorno != 1) {
+				System.out.printf("Digite o ID\n");
+				id = exceptions.integerInput();
+				retorno = busca.getIdVeiculos(veiculos, id);
 			}
-			postionID[id] = true;
-			System.out.printf("O ID do veiculo é: %d\n", id);
-			System.out.println("---------Digite o Modelo do veiculo------------");
+			System.out.println("---------Digite o Modelo do veiculo------------" + "EX: CELTA");
 			String modelo = input.nextLine();
-			System.out.println("---------Digite a Marca do veiculo------------");
+			System.out.println("---------Digite a Marca do veiculo------------" + "EX: CHEVROLET");
 			String marca = input.nextLine();
 			System.out.println(">>>>>>>>> No formato (AAA-9999)<<<<<<<<<<<<<<<<");
 			System.out.println("---------Digite a Placa do veiculo------------");
 			String placa = input.nextLine();
-			boolean retorno = validador.validador(placa);
-			if (retorno == true) {
-				System.out.println("-----------------------Placa aceita--------------------");
-			} else {
-				System.out.println("----------------Placa invalida, comece o cadastro novamente----------------");
-				postionID[id] = false;
-				execute(veiculos);
+			boolean retorno1 = validador.validador(placa);
+			while(retorno1 != true)
+			{
+				System.out.println("---------Digite a Placa do veiculo------------");
+				placa = input.nextLine();
+				retorno1 = validador.validador(placa);
 			}
-			System.out.println("---------Digite a Cor do veiculo------------");
+			System.out.println("---------Digite a Cor do veiculo------------" + "EX: PRETO");
 			String cor = input.nextLine();
-			System.out.println("---------Digite o tipo do veiculo------------");
-			String tipo = input.nextLine();
 			Date data = new Date();
-
-			if ("Carro".equalsIgnoreCase(tipo)) {
-				Double preco = price.getPrecoCarro();
-				String tipoCarro;
-				System.out.println("---------Digite o tipo do carro------------");
-				tipoCarro = input.nextLine();
-
-				veiculos.add(new Carro(id, modelo, marca, placa, tipo, cor, preco, data, tipoCarro));
-				qtdCarro += 1;
-			} else if ("Caminhao".equalsIgnoreCase(tipo)) {
-				Double preco = price.getPrecoCaminhao();
-				System.out.println("---------Digite o tipo a Carga que o Caminhão suportar------------");
-				Double carga = input.nextDouble();
-				veiculos.add(new Caminhao(id, modelo, marca, placa, tipo, cor, preco, data, carga));
-				qtdCaminhao += 1;
-			} else if ("Moto".equalsIgnoreCase(tipo)) {
-				Double preco = price.getPrecoMoto();
-				System.out.println("---------Digite a cilindrada da moto------------");
-				Double cilindrada = input.nextDouble();
-				veiculos.add(new Moto(id, modelo, marca, placa, tipo, cor, preco, data, cilindrada));
-				qtdMoto += 1;
-			} else {
-				System.out.println("--------Veiculo invalido---------------");
-				postionID[id] = false;
-				execute(veiculos);
+			System.out.println("---------Escolha o Tipo de veiculo------------\n"+
+								"[1] Carro\n" +
+								"[2] Moto\n" +
+								"[3] Caminhao");
+			int tipo = exceptions.integerInput();
+			while(tipo < 1 || tipo > 3) {
+				System.out.println("---------Escolha o Tipo de veiculo------------\n"+
+						"[1] Carro\n" +
+						"[2] Moto\n" +
+						"[3] Caminhao");
+				tipo = exceptions.integerInput();
 			}
-			qtdTotal = qtdCaminhao + qtdCarro + qtdMoto;
+			if (tipo == 1) {
+				System.out.println("---------Digite o preco do carro--------" + "EX: 2,00");
+				double preco = exceptions.doubleInput();
+				String tipoCarro;
+				System.out.println("---------Digite o tipo do Carro------------" + "EX: PASSEIO");
+				tipoCarro = input.nextLine();
+				veiculos.add(new Carro(id, modelo, marca, placa, "CARRO", cor, preco, data, tipoCarro));
+			} else if (tipo == 2) {
+				System.out.println("--------------Digite o preco da moto-------------" + "EX: 3,00");
+				double preco = exceptions.doubleInput();
+				System.out.println("---------Digite a cilindrada da Moto------------" + "EX: 300");
+				double cilindrada = exceptions.doubleInput();
+				veiculos.add(new Moto(id, modelo, marca, placa, "MOTO", cor, preco, data, cilindrada));
+			}else if (tipo == 3){
+				System.out.println("--------------Digite o preco do Caminhao------------" + "EX: 5,00");
+				double preco = exceptions.doubleInput();
+				System.out.println("---------Digite o tipo a Carga que o Caminhão suportar------------" + "EX: 1000");
+				double carga = exceptions.doubleInput();
+				veiculos.add(new Caminhao(id, modelo, marca, placa, "CAMINHAO", cor, preco, data, carga));
+			}
 			System.out.println("-----------Cadastro feito com sucesso-------------------");
 
-		} catch (InvalidAttributeValueException e) {
-			System.out.println("Estacionamento cheio.");
-			execute(veiculos);
-			System.exit(0);
-		} catch (InputMismatchException e) {
+		}catch (InputMismatchException e) {
 			System.out.println("Digite um tipo valido");
-			execute(veiculos);
+			execute(veiculos,valor);
 			System.exit(0);
 		}
 		return;

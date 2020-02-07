@@ -15,7 +15,6 @@ public class Busca {
 	                return aux;
 	            }
 	        }
-	        System.out.println("---------- ID invalido------------------");
 	        return -1;  
 	    }
 

@@ -20,18 +20,6 @@ public enum TypeMenu {
 			return new RemoverStrategy();
 		}
 	},
-	ADDPRICE {
-		@Override
-		public MenuStrategy obterMenu() {
-			return new AddPriceStrategy();
-		}
-	},
-	ALTERPRICE {
-		@Override
-		public MenuStrategy obterMenu() {
-			return new AlterarPrecoStrategy();
-		}
-	},
 	ADDHOUREXTRA {
 		@Override
 		public MenuStrategy obterMenu() {

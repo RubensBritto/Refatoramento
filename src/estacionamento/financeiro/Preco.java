@@ -4,40 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import estacionamento.strategy.DateSingleton;
+
 public class Preco {
 	Scanner input = new Scanner(System.in);
-    private double precoCarro;
-    private double precoMoto;
-    private double precoCaminhao;
+	DateSingleton data = DateSingleton.getInstance();
+
     private int horaAdicional;
     private double priceHoraAdicional;
     
-    public double getPrecoCarro() {
-        return precoCarro;
-    }
-
-    public void setPrecoCarro(double precoCarro) {
-        this.precoCarro = precoCarro;
-    }
-
-    public double getPrecoMoto() {
-        return precoMoto;
-    }
-
-    public void setPrecoMoto(double precoMoto) {
-        this.precoMoto = precoMoto;
-    }
-
-    public double getPrecoCaminhao() {
-        return precoCaminhao;
-    }
-
-    public void setPrecoCaminhao(double precoCaminhao) {
-        this.precoCaminhao = precoCaminhao;
-    }
-
-
-     public int getHoraAdicional() {
+    public int getHoraAdicional() {
         return horaAdicional;
     }
 
@@ -54,10 +30,10 @@ public class Preco {
 
     public double calcularPagamento(Date entrou, Date saiu, double valPHora) {
         int inicio, fim, tempoDecorrido;
-        inicio = getHoraFormatada(entrou, "mm");
-        fim = getHoraFormatada(saiu, "mm");
-        inicio += 60 * getHoraFormatada(entrou, "HH");
-        fim += 60 * getHoraFormatada(saiu, "HH");
+        inicio = data.getHoraFormatada(entrou, "mm");
+        fim = data.getHoraFormatada(saiu, "mm");
+        inicio += 60 * data.getHoraFormatada(entrou, "HH");
+        fim += 60 * data.getHoraFormatada(saiu, "HH");
         tempoDecorrido = fim - inicio;
         if (tempoDecorrido < 0) {
             tempoDecorrido = (tempoDecorrido - 24 * 60) * -1;
@@ -77,9 +53,9 @@ public class Preco {
         }
     }
 
-    private static int getHoraFormatada(Date h, String formato) {
-        String fh = new SimpleDateFormat(formato).format(h);
-        return Integer.parseInt(fh);
-    }
+//    private static int getHoraFormatada(Date h, String formato) {
+//        String fh = new SimpleDateFormat(formato).format(h);
+//        return Integer.parseInt(fh);
+//    }
 
 }

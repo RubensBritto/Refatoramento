@@ -7,7 +7,7 @@ import estacionamento.veiculos.Veiculo;
 public class Exit implements MenuStrategy {
 
 	@Override
-	public void execute(ArrayList<Veiculo> veiculos) {
+	public void execute(ArrayList<Veiculo> veiculos, ArrayList<Double>valor) {
 		System.exit(0);
 		
 	}

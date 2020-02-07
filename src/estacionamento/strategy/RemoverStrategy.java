@@ -13,25 +13,16 @@ public class RemoverStrategy implements MenuStrategy {
     Relatorio relatorio = new Relatorio();
 
 	@Override
-	public void execute(ArrayList<Veiculo> veiculos) {
+	public void execute(ArrayList<Veiculo> veiculos,ArrayList<Double>valor) {
 		int retorno = busca.getIdVeiculos(veiculos);
         int id = retorno;
         double valPHora;
         Preco p = new Preco();
         if(retorno != -1){
-            if("Carro".equalsIgnoreCase(veiculos.get(id).getTipo())){
-                //qtdCarro-=1;
-                valPHora = p.getPrecoCarro();
-            }else if("Caminhao".equalsIgnoreCase((veiculos.get(id).getTipo()))) {
-                //qtdCaminhao-=1;
-                valPHora = p.getPrecoCaminhao();
-            }else{
-                //qtdMoto-=1;        
-                valPHora = p.getPrecoMoto();
-            }
+            valPHora = veiculos.get(id).getPreco();
             double valorAPagar = p.calcularPagamento(veiculos.get(id).data, new Date(), valPHora);
             System.out.printf("Total a pagar: %2f\n", valorAPagar);
-            relatorio.addRelatorio(valorAPagar);
+            valor.add(valorAPagar);
             veiculos.remove(id);
             System.out.println("---------Veiculo removido com sucesso----------------");
         }else{
