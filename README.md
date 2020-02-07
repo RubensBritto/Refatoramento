@@ -19,10 +19,12 @@
 <p>Utilizado na Criação do ArrayList<Veiculo> e do ArrayList<Double>.<p/>
   
 ### INSTRUÇÕES DE USO
-<p>Caso o estacionamento não cobre horas extras, o sistema assume automaticamente que a opção <b>[4] do menu<b/> é zero<p/>
-<p>O relatório <b>(opção [7] do menu)<b/> só é atualizado quando realizam a remoção de veiculos <b>(opção [3] do menu)<b/><p/>
+Caso o estacionamento não cobre horas extras, o sistema assume automaticamente que a opção **[4] do menu** é zero<br/>
+O relatório **(opção [7] do menu)** só é atualizado quando realizam a remoção de veiculos **(opção [3] do menu)**
 
 ### Desenvolvido no Eclipse (2019-12)
 ### Compilado no Java JDK 11
+
+
 
   
