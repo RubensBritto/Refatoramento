@@ -13,6 +13,8 @@
 
 ### 3. Singleton
 <p>Utilizado na classe DataSingleton para criar apenas uma instância.
+
+![menu](https://user-images.githubusercontent.com/47110177/74075009-70668600-49ef-11ea-889b-80489fae3dbd.png)
   
 ### 4. Extrac Class 
 <p>Utilizado na classe Veiculo para extrair os atributos e metodos comuns das suas subclasses (carro, moto, caminhao).<p/>
